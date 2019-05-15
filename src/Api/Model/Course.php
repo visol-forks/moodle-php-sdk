@@ -158,11 +158,11 @@ class Course extends ModelBase implements ModelCRUD {
     }
 
     public function getSummary() {
-        return $this->sumary;
+        return $this->summary;
     }
 
     public function setSummary($summary) {
-        $this->summary = $summart;
+        $this->summary = $summary;
         return $this;
     }
 
