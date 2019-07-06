@@ -3,9 +3,17 @@
 use MoodleSDK\Api\ApiContext;
 use MoodleSDK\Api\ModelBaseList;
 
-class CourseList extends ModelBaseList {
+class CourseList extends ModelBaseList
+{
 
-    public function all(ApiContext $apiContext) {
+    /**
+     * Fetch all courses
+     *
+     * @param ApiContext $apiContext
+     * @return $this
+     */
+    public function all(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_course_get_courses', [
             'options' => [
                 'ids' => [
@@ -17,13 +25,68 @@ class CourseList extends ModelBaseList {
         return $this;
     }
 
-    public function searchByUser(ApiContext $apiContext, User $user) {
+    /**
+     * Fetch one course
+     *
+     * @param int $courseId
+     * @param ApiContext $apiContext
+     * @return $this
+     */
+    public function one(int $courseId, ApiContext $apiContext)
+    {
+        $json = $this->apiCall($apiContext, 'core_course_get_courses', [
+            'options' => [
+                'ids' => [$courseId]
+            ]
+        ]);
+
+        $this->fromJSON($json);
+        return $this;
+    }
+
+    /**
+     * Find courses by Ids
+     *
+     * @param array $courseIds
+     * @param ApiContext $apiContext
+     * @return $this
+     */
+    public function findByIds(array $courseIds, ApiContext $apiContext)
+    {
+        $json = $this->apiCall($apiContext, 'core_course_get_courses', [
+            'options' => [
+                'ids' => $courseIds
+            ]
+        ]);
+
+        $this->fromJSON($json);
+        return $this;
+    }
+
+    public function searchByUser(ApiContext $apiContext, User $user)
+    {
         $json = $this->apiCall($apiContext, 'core_enrol_get_users_courses', [
             'userid' => $user->getId()
         ]);
 
         $this->fromJSON($json);
         return $this;
+    }
+
+    public function bulkUpdate(ApiContext $apiContext, array $coursesToUpdate)
+    {
+        $json = $this->apiCall($apiContext, 'core_course_update_courses', [
+            'courses' => $coursesToUpdate
+        ]);
+        return $json;
+    }
+
+    public function bulkDelete(ApiContext $apiContext, array $idsOfCoursesToDelete)
+    {
+        $json = $this->apiCall($apiContext, 'core_course_delete_courses', [
+            'courseids' => $idsOfCoursesToDelete
+        ]);
+        return $json;
     }
 
 }
