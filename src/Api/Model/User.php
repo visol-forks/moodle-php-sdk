@@ -7,6 +7,12 @@ use MoodleSDK\Api\ModelCRUD;
 class User extends ModelBase implements ModelCRUD {
 
     private $id;
+
+    /** @var string */
+    private $idnumber;
+
+    /** @var string */
+    private $auth;
     private $username;
     private $password;
     private $firstName;
@@ -79,6 +85,40 @@ class User extends ModelBase implements ModelCRUD {
 
     public function setId($id) {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdnumber()
+    {
+        return $this->idnumber;
+    }
+
+    /**
+     * @param mixed $idnumber
+     */
+    public function setIdnumber($idnumber)
+    {
+        $this->idnumber = $idnumber;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuth()
+    {
+        return $this->auth;
+    }
+
+    /**
+     * @param string $auth
+     */
+    public function setAuth($auth)
+    {
+        $this->auth = $auth;
         return $this;
     }
 
