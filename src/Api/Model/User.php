@@ -4,7 +4,8 @@ use MoodleSDK\Api\ApiContext;
 use MoodleSDK\Api\ModelBase;
 use MoodleSDK\Api\ModelCRUD;
 
-class User extends ModelBase implements ModelCRUD {
+class User extends ModelBase implements ModelCRUD
+{
 
     private $id;
 
@@ -21,7 +22,13 @@ class User extends ModelBase implements ModelCRUD {
     private $email;
     private $preferences;
 
-    public function get(ApiContext $apiContext) {
+    /**
+     * @var integer
+     */
+    private $suspended;
+
+    public function get(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_user_get_users_by_field', [
             'field' => 'username',
             'values' => [$this->getUsername()]
@@ -34,7 +41,8 @@ class User extends ModelBase implements ModelCRUD {
         return $this;
     }
 
-    public function create(ApiContext $apiContext) {
+    public function create(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_user_create_users', [
             'users' => [
                 $this->toArray()
@@ -43,8 +51,9 @@ class User extends ModelBase implements ModelCRUD {
 
         return $json;
     }
- 
-    public function update(ApiContext $apiContext) {
+
+    public function update(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_user_update_users', [
             'users' => [
                 $this->toArray()
@@ -54,7 +63,8 @@ class User extends ModelBase implements ModelCRUD {
         return $json;
     }
 
-    public function delete(ApiContext $apiContext) {
+    public function delete(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_user_delete_users', [
             'userids' => [$this->getId()]
         ]);
@@ -62,28 +72,33 @@ class User extends ModelBase implements ModelCRUD {
         return $json;
     }
 
-    public function fromArrayExcludedProperties() {
+    public function fromArrayExcludedProperties()
+    {
         return ['enrolledcourses', 'groups', 'roles'];
     }
 
-    public function toArrayExcludedProperties() {
+    public function toArrayExcludedProperties()
+    {
         return ['fullname'];
     }
 
     // Getters for Model relationships
 
-    public function allCourses($context) {
+    public function allCourses($context)
+    {
         $courseList = new CourseList();
         return $courseList->searchByUser($context, $this);
     }
 
     // Properties Getters & Setters
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
         return $this;
     }
@@ -122,56 +137,68 @@ class User extends ModelBase implements ModelCRUD {
         return $this;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function setUsername($username) {
+    public function setUsername($username)
+    {
         $this->username = $username;
         return $this;
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
         return $this;
     }
 
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return $this->firstName;
     }
 
-    public function setFirstName($firstName) {
+    public function setFirstName($firstName)
+    {
         $this->firstName = $firstName;
         return $this;
     }
 
-    public function getLastName() {
+    public function getLastName()
+    {
         return $this->lastName;
     }
 
-    public function setLastName($lastName) {
+    public function setLastName($lastName)
+    {
         $this->lastName = $lastName;
         return $this;
     }
 
-    public function getFullName() {
+    public function getFullName()
+    {
         return $this->fullName;
     }
 
-    public function setFullName($fullName) {
+    public function setFullName($fullName)
+    {
         $this->fullName = $fullName;
         return $this;
     }
 
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
         return $this;
     }
@@ -179,13 +206,31 @@ class User extends ModelBase implements ModelCRUD {
     /**
      * @return UserPreference[]
      */
-    public function getPreferences() {
+    public function getPreferences()
+    {
         return $this->preferences;
     }
 
-    public function setPreferences($preferences) {
+    public function setPreferences($preferences)
+    {
         $this->preferences = $preferences;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSuspended()
+    {
+        return $this->suspended;
+    }
+
+    /**
+     * @param int $suspended
+     */
+    public function setSuspended($suspended)
+    {
+        $this->suspended = $suspended;
     }
 
 }
