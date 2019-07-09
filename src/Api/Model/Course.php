@@ -7,6 +7,10 @@ use MoodleSDK\Api\ModelCRUD;
 class Course extends ModelBase implements ModelCRUD {
 
     private $id;
+
+    /** @var string */
+    private $idnumber;
+
     private $shortName;
     private $displayName;
     private $fullName;
@@ -118,6 +122,23 @@ class Course extends ModelBase implements ModelCRUD {
 
     public function setId($id) {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdnumber()
+    {
+        return $this->idnumber;
+    }
+
+    /**
+     * @param mixed $idnumber
+     */
+    public function setIdnumber($idnumber)
+    {
+        $this->idnumber = $idnumber;
         return $this;
     }
 
