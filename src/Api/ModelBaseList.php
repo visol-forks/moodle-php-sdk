@@ -12,7 +12,14 @@ abstract class ModelBaseList extends ModelBase implements \ArrayAccess, \Countab
         $listType = get_called_class();
         $itemType = substr($listType, 0, strlen($listType) - strlen('List'));
 
-        foreach (json_decode($data) as $itemData) {
+        $data = json_decode($data);
+
+        // Workaround: core_user_get_users delivers the users in a property users
+        if ($itemType === 'MoodleSDK\Api\Model\User') {
+            $data = $data->users;
+        }
+
+        foreach ($data as $itemData) {
             $item = new $itemType();
             $item->fromArray($itemData);
 
