@@ -37,6 +37,31 @@ class Course extends ModelBase implements ModelCRUD {
         return $this;
     }
 
+    /**
+     * Get a single course by the value of a given field
+     *
+     * @param string $fieldName
+     * @param $value
+     * @param ApiContext $apiContext
+     * @return $this
+     */
+    public function getByField($fieldName, $value, ApiContext $apiContext) {
+        $json = $this->apiCall($apiContext, 'core_course_get_courses_by_field', [
+            'field' => $fieldName,
+            'value' => $value
+        ]);
+
+        $results = json_decode($json);
+
+        if (empty($results->courses)) {
+            return null;
+        }
+
+        $this->fromObject($results->courses[0]);
+
+        return $this;
+    }
+
     public function create(ApiContext $apiContext) {
         $json = $this->apiCall($apiContext, 'core_course_create_courses', [
             'courses' => [
@@ -89,7 +114,7 @@ class Course extends ModelBase implements ModelCRUD {
             ]
         ]);
         
-        return $json;
+        return json_decode($json);
     }
 
     public function unenrolUser(ApiContext $apiContext, User $user, $roleId) {
@@ -107,7 +132,7 @@ class Course extends ModelBase implements ModelCRUD {
     }
 
     public function fromArrayExcludedProperties() {
-        return ['courseformatoptions', 'enrollmentmethods'];
+        return ['courseformatoptions', 'enrollmentmethods', 'filters'];
     }
 
     public function toArrayExcludedProperties() {
