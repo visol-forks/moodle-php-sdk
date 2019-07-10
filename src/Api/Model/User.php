@@ -231,6 +231,7 @@ class User extends ModelBase implements ModelCRUD
     public function setSuspended($suspended)
     {
         $this->suspended = $suspended;
+        return $this;
     }
 
 }
