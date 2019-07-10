@@ -41,6 +41,32 @@ class User extends ModelBase implements ModelCRUD
         return $this;
     }
 
+    /**
+     * Get a single user by the value of a given field
+     *
+     * @param string $fieldName
+     * @param string $value
+     * @param ApiContext $apiContext
+     * @return $this
+     */
+    public function getByField($fieldName, $value, ApiContext $apiContext)
+    {
+        $json = $this->apiCall($apiContext, 'core_user_get_users_by_field', [
+            'field' => $fieldName,
+            'values' => [$value]
+        ]);
+
+        $results = json_decode($json);
+
+        if (empty($results)) {
+            return null;
+        }
+
+        $this->fromObject($results[0]);
+
+        return $this;
+    }
+
     public function create(ApiContext $apiContext)
     {
         $json = $this->apiCall($apiContext, 'core_user_create_users', [
