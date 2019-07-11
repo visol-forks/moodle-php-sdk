@@ -2,6 +2,7 @@
 
 use MoodleSDK\Api\ModelBase;
 
-class File extends ModelBase {
+class File extends ModelBase
+{
 
 }

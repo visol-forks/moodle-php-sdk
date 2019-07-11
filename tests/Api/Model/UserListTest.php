@@ -9,17 +9,18 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers UserList
  */
-class UserListTest extends ContextTestCase {
+class UserListTest extends ContextTestCase
+{
 
     /**
     * @dataProvider contextProvider
     */
-    public function testAll($context) {
+    public function testAll($context)
+    {
         $userList = new UserList();
         $userList->all($context);
         
         $this->assertGreaterThan(0, count($userList));
         $this->assertInstanceOf(User::class, $userList[0]);
     }
-
 }

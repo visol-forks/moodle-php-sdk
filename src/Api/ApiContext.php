@@ -1,9 +1,9 @@
 <?php namespace MoodleSDK\Api;
 
-interface ApiContext {
+interface ApiContext
+{
 
     function newCall($method, $payload);
     
     function testApiAvailability();
-
 }

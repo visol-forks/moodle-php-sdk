@@ -2,7 +2,8 @@
 
 use MoodleSDK\Api\ApiContext;
 
-interface ModelCRUD {
+interface ModelCRUD
+{
 
     function get(ApiContext $apiContext);
 
@@ -11,5 +12,4 @@ interface ModelCRUD {
     function update(ApiContext $apiContext);
 
     function delete(ApiContext $apiContext);
-
 }

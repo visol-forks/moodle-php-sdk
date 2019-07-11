@@ -3,7 +3,8 @@
 use MoodleSDK\Api\ApiContext;
 use MoodleSDK\Auth\AuthTokenCredential;
 
-class RestApiContext implements ApiContext {
+class RestApiContext implements ApiContext
+{
 
     const RESPONSE_TYPE_ALLOWED = ['json']; // xml should be here on the future
 
@@ -16,11 +17,13 @@ class RestApiContext implements ApiContext {
     private $protocol = 'tcp';
     private $responseType;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->setResponseType('json');
     }
 
-    public function newCall($method, $payload) {
+    public function newCall($method, $payload)
+    {
         $call = new RestApiCall($this->getWebServiceUrl(), $method, $payload);
 
         $call
@@ -30,14 +33,16 @@ class RestApiContext implements ApiContext {
         return $call;
     }
 
-    private function getWebServiceUrl() {
+    private function getWebServiceUrl()
+    {
         $scheme = $this->getPort() === 443 ? 'https' : 'http';
         $credentialParam = $this->credential->toQueryStringParam();
         $responseTypeParam = 'moodlewsrestformat='.$this->getResponseType();
         return $scheme.'://'.$this->getUrl().'/webservice/rest/server.php?'.$responseTypeParam.'&'.$credentialParam;
     }
 
-    public function testApiAvailability() {
+    public function testApiAvailability()
+    {
         $errno = 0;
         $errstr = '';
 
@@ -52,59 +57,71 @@ class RestApiContext implements ApiContext {
 
     // Properties Getters & Setters
 
-    public function getDebug() {
+    public function getDebug()
+    {
         return $this->debug;
     }
 
-    public function setDebug($debug) {
+    public function setDebug($debug)
+    {
         $this->debug = $debug;
         return $this;
     }
 
-    public function getCredential() {
+    public function getCredential()
+    {
         return $this->credential;
     }
 
-    public function setCredential($credential) {
+    public function setCredential($credential)
+    {
         $this->credential = $credential;
         return $this;
     }
 
-    public function getHost() {
+    public function getHost()
+    {
         return $this->host;
     }
 
-    public function setHost($host) {
+    public function setHost($host)
+    {
         $this->host = $host;
         return $this;
     }
 
-    public function getPath() {
+    public function getPath()
+    {
         return $this->path;
     }
 
-    public function setPath($path) {
+    public function setPath($path)
+    {
         $this->path = $path;
         return $this;
     }
 
-    public function getPort() {
+    public function getPort()
+    {
         return $this->port;
     }
 
-    public function setPort($port) {
+    public function setPort($port)
+    {
         $this->port = $port;
         return $this;
     }
 
-    public function getUrl() {
+    public function getUrl()
+    {
         $url = $this->getHost();
         $url .= ':'.$this->getPort();
         $url .= $this->getPath();
         return $url;
     }
 
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $components = parse_url($url);
 
         $this->setHost($components['host'] ?: $components['path']);
@@ -120,11 +137,13 @@ class RestApiContext implements ApiContext {
         return $this;
     }
 
-    public function getResponseType() {
+    public function getResponseType()
+    {
         return $this->responseType;
     }
 
-    public function setResponseType($responseType) {
+    public function setResponseType($responseType)
+    {
         if (!in_array($responseType, self::RESPONSE_TYPE_ALLOWED)) {
             throw new Exception('Invalid $responseType value. Supported values are: '.implode(', ', self::RESPONSE_TYPE_ALLOWED));
         }
@@ -136,8 +155,8 @@ class RestApiContext implements ApiContext {
 
     // Static methods
 
-    public static function instance() {
+    public static function instance()
+    {
         return new RestApiContext();
     }
-
 }

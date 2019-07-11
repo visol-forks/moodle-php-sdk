@@ -4,7 +4,8 @@ use MoodleSDK\Api\ApiContext;
 use MoodleSDK\Api\ModelBase;
 use MoodleSDK\Api\ModelCRUD;
 
-class Course extends ModelBase implements ModelCRUD {
+class Course extends ModelBase implements ModelCRUD
+{
 
     private $id;
 
@@ -24,7 +25,8 @@ class Course extends ModelBase implements ModelCRUD {
     private $endDate;
     private $contacts;
 
-    public function get(ApiContext $apiContext) {
+    public function get(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_course_get_courses_by_field', [
             'field' => 'shortname',
             'value' => $this->getShortName()
@@ -45,7 +47,8 @@ class Course extends ModelBase implements ModelCRUD {
      * @param ApiContext $apiContext
      * @return $this
      */
-    public function getByField($fieldName, $value, ApiContext $apiContext) {
+    public function getByField($fieldName, $value, ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_course_get_courses_by_field', [
             'field' => $fieldName,
             'value' => $value
@@ -62,7 +65,8 @@ class Course extends ModelBase implements ModelCRUD {
         return $this;
     }
 
-    public function create(ApiContext $apiContext) {
+    public function create(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_course_create_courses', [
             'courses' => [
                 $this->toArray()
@@ -72,7 +76,8 @@ class Course extends ModelBase implements ModelCRUD {
         return $json;
     }
  
-    public function update(ApiContext $apiContext) {
+    public function update(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_course_update_courses', [
             'courses' => [
                 $this->toArray()
@@ -82,7 +87,8 @@ class Course extends ModelBase implements ModelCRUD {
         return $json;
     }
 
-    public function delete(ApiContext $apiContext) {
+    public function delete(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_course_delete_courses', [
             'courseids' => [$this->getId()]
         ]);
@@ -90,7 +96,8 @@ class Course extends ModelBase implements ModelCRUD {
         return $json;
     }
 
-    public function enrolledUsers(ApiContext $apiContext) {
+    public function enrolledUsers(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_enrol_get_enrolled_users', [
             'courseid' => $this->getId()
         ]);
@@ -101,7 +108,8 @@ class Course extends ModelBase implements ModelCRUD {
         return $userList;
     }
 
-    public function enrolUser(ApiContext $apiContext, User $user, $roleId) {
+    public function enrolUser(ApiContext $apiContext, User $user, $roleId)
+    {
         $json = $this->apiCall($apiContext, 'enrol_manual_enrol_users', [
             'enrolments' => [
                 Enrolment::instance()
@@ -117,7 +125,8 @@ class Course extends ModelBase implements ModelCRUD {
         return json_decode($json);
     }
 
-    public function unenrolUser(ApiContext $apiContext, User $user, $roleId) {
+    public function unenrolUser(ApiContext $apiContext, User $user, $roleId)
+    {
         $json = $this->apiCall($apiContext, 'enrol_manual_unenrol_users', [
             'enrolments' => [
                 Enrolment::instance()
@@ -131,21 +140,25 @@ class Course extends ModelBase implements ModelCRUD {
         return $json;
     }
 
-    public function fromArrayExcludedProperties() {
+    public function fromArrayExcludedProperties()
+    {
         return ['courseformatoptions', 'enrollmentmethods', 'filters'];
     }
 
-    public function toArrayExcludedProperties() {
+    public function toArrayExcludedProperties()
+    {
         return ['displayname'];
     }
 
     // Properties Getters & Setters
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
         return $this;
     }
@@ -167,56 +180,68 @@ class Course extends ModelBase implements ModelCRUD {
         return $this;
     }
 
-    public function getShortName() {
+    public function getShortName()
+    {
         return $this->shortName;
     }
 
-    public function setShortName($shortName) {
+    public function setShortName($shortName)
+    {
         $this->shortName = $shortName;
         return $this;
     }
 
-    public function getDisplayName() {
+    public function getDisplayName()
+    {
         return $this->displayName;
     }
 
-    public function setDisplayName($displayName) {
+    public function setDisplayName($displayName)
+    {
         $this->displayName = $displayName;
         return $this;
     }
 
-    public function getFullName() {
+    public function getFullName()
+    {
         return $this->fullName;
     }
 
-    public function setFullName($fullName) {
+    public function setFullName($fullName)
+    {
         $this->fullName = $fullName;
         return $this;
     }
 
-    public function getFormat() {
+    public function getFormat()
+    {
         return $this->format;
     }
 
-    public function setFormat($format) {
+    public function setFormat($format)
+    {
         $this->format = $format;
         return $this;
     }
 
-    public function getSummary() {
+    public function getSummary()
+    {
         return $this->summary;
     }
 
-    public function setSummary($summary) {
+    public function setSummary($summary)
+    {
         $this->summary = $summary;
         return $this;
     }
 
-    public function getSummaryFormat() {
+    public function getSummaryFormat()
+    {
         return $this->summaryFormat;
     }
 
-    public function setSummaryFormat($summaryFormat) {
+    public function setSummaryFormat($summaryFormat)
+    {
         $this->summaryFormat = $summaryFormat;
         return $this;
     }
@@ -224,11 +249,13 @@ class Course extends ModelBase implements ModelCRUD {
     /**
      * @return File[]
      */
-    public function getSummaryFiles() {
+    public function getSummaryFiles()
+    {
         return $this->summaryFiles;
     }
 
-    public function setSummaryFiles($summaryFiles) {
+    public function setSummaryFiles($summaryFiles)
+    {
         $this->summaryFiles = $summaryFiles;
         return $this;
     }
@@ -236,38 +263,46 @@ class Course extends ModelBase implements ModelCRUD {
     /**
      * @return File[]
      */
-    public function getOverviewFiles() {
+    public function getOverviewFiles()
+    {
         return $this->overviewFiles;
     }
 
-    public function setOverviewFiles($overviewFiles) {
+    public function setOverviewFiles($overviewFiles)
+    {
         $this->overviewFiles = $overviewFiles;
         return $this;
     }
     
-    public function getCategoryId() {
+    public function getCategoryId()
+    {
         return $this->categoryId;
     }
 
-    public function setCategoryId($categoryId) {
+    public function setCategoryId($categoryId)
+    {
         $this->categoryId = $categoryId;
         return $this;
     }
 
-    public function getStartDate() {
+    public function getStartDate()
+    {
         return $this->startDate;
     }
 
-    public function setStartDate($startDate) {
+    public function setStartDate($startDate)
+    {
         $this->startDate = $startDate;
         return $this;
     }
 
-    public function getEndDate() {
+    public function getEndDate()
+    {
         return $this->endDate;
     }
 
-    public function setEndDate($endDate) {
+    public function setEndDate($endDate)
+    {
         $this->endDate = $endDate;
         return $this;
     }
@@ -275,13 +310,14 @@ class Course extends ModelBase implements ModelCRUD {
     /**
      * @return Contact[]
      */
-    public function getContacts() {
+    public function getContacts()
+    {
         return $this->contacts;
     }
 
-    public function setContacts($contacts) {
+    public function setContacts($contacts)
+    {
         $this->contacts = $contacts;
         return $this;
     }
-
 }

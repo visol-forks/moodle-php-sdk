@@ -259,5 +259,4 @@ class User extends ModelBase implements ModelCRUD
         $this->suspended = $suspended;
         return $this;
     }
-
 }

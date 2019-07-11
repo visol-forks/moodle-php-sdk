@@ -1,7 +1,7 @@
 <?php namespace MoodleSDK\Auth;
 
-interface Credential {
+interface Credential
+{
 
     function toQueryStringParam();
-
 }

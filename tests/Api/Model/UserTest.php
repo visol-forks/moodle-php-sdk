@@ -15,18 +15,21 @@ define(TEST_USERNAME, 'test'.md5('agurz/Moodle-PHP-SDK'));
 /**
  * @covers User
  */
-class UserTest extends ContextTestCase {
+class UserTest extends ContextTestCase
+{
 
     private $user;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->user = new User();
     }
 
     /**
     * @dataProvider contextProvider
     */
-    public function testGet($context) {
+    public function testGet($context)
+    {
         $this->user
                 ->setUsername('admin')
                 ->get($context);
@@ -38,7 +41,8 @@ class UserTest extends ContextTestCase {
     * @dataProvider contextProvider
     * @depends testGet
     */
-    public function testCreate($context) {
+    public function testCreate($context)
+    {
         $this->user
             ->setUsername(TEST_USERNAME)
             ->setPassword('Test..01')
@@ -56,7 +60,8 @@ class UserTest extends ContextTestCase {
     * @depends testCreate
     * @depends testGet
     */
-    public function testUpdate($context) {
+    public function testUpdate($context)
+    {
         $this->user
             ->setUsername(TEST_USERNAME)
             ->get($context)
@@ -68,7 +73,7 @@ class UserTest extends ContextTestCase {
             ->update($context);
 
         $this->assertEquals(
-            'TestFirstNameUpdated', 
+            'TestFirstNameUpdated',
             User::instance()->setUsername(TEST_USERNAME)->get($context)->getFirstName()
         );
     }
@@ -78,7 +83,8 @@ class UserTest extends ContextTestCase {
     * @depends testCreate
     * @depends testUpdate
     */
-    public function testDelete($context) {
+    public function testDelete($context)
+    {
         $this->user
             ->setUsername(TEST_USERNAME)
             ->get($context)
@@ -90,7 +96,8 @@ class UserTest extends ContextTestCase {
     /**
     * @dataProvider contextProvider
     */
-    public function testAllCourses($context) {
+    public function testAllCourses($context)
+    {
         $courseList = $this->user
                             ->setUsername(TEST_USERNAME)
                             ->get($context)
@@ -99,5 +106,4 @@ class UserTest extends ContextTestCase {
         $this->assertInstanceOf(CourseList::class, $courseList);
         $this->assertGreaterThan(0, count($courseList));
     }
-
 }

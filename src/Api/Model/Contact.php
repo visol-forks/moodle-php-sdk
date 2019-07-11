@@ -2,6 +2,7 @@
 
 use MoodleSDK\Api\ModelBase;
 
-class Contact extends ModelBase {
+class Contact extends ModelBase
+{
 
 }

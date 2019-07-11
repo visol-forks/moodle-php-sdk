@@ -2,35 +2,37 @@
 
 define('EOL', "\n");
 
-abstract class Log {
+abstract class Log
+{
 
     private static $instance;
 
     public $lines = [];
 
-    protected function __construct() {
-        register_shutdown_function(function() {
+    protected function __construct()
+    {
+        register_shutdown_function(function () {
             self::getInstance()->render();
         });
     }
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$instance) {
             return self::$instance;
-        }
-        else {
+        } else {
             $c = get_called_class();
             self::$instance = $c::newInstance();
             return self::$instance;
         }
     }
 
-    public static function i() {
+    public static function i()
+    {
         return self::getInstance();
     }
 
-    protected abstract static function newInstance();
+    abstract protected static function newInstance();
 
-    protected abstract function render();
-
+    abstract protected function render();
 }

@@ -13,12 +13,14 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers CourseList
  */
-class CourseListTest extends ContextTestCase {
+class CourseListTest extends ContextTestCase
+{
 
     /**
     * @dataProvider contextProvider
     */
-    public function testAll($context) {
+    public function testAll($context)
+    {
         $courseList = new CourseList();
         $courseList->all($context);
         
@@ -29,12 +31,12 @@ class CourseListTest extends ContextTestCase {
     /**
     * @dataProvider contextProvider
     */
-    public function testSearchByUser($context) {
+    public function testSearchByUser($context)
+    {
         $courseList = new CourseList();
         $courseList->searchByUser($context, User::instance()->setUsername('admin')->get($context));
         
         $this->assertGreaterThan(0, count($courseList));
         $this->assertInstanceOf(Course::class, $courseList[0]);
     }
-
 }

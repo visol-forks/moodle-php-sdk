@@ -3,14 +3,16 @@
 use \zpt\anno\Annotations;
 use MoodleSDK\Api\ModelBase;
 
-class ReflectionType {
+class ReflectionType
+{
 
     const SCALAR_TYPES = ['boolean', 'integer', 'float', 'string'];
 
     private $name;
     private $namespace;
     
-    public function __construct($name, $contextObject = null) {
+    public function __construct($name, $contextObject = null)
+    {
         $this->name = $name;
 
         if (!$this->isScalar() && !$this->isClass()) {
@@ -22,12 +24,10 @@ class ReflectionType {
                 if (class_exists($fullQualifiedName)) {
                     $this->name = $name;
                     $this->namespace = $namespace;
-                }
-                else {
+                } else {
                     $err = true;
                 }
-            }
-            else {
+            } else {
                 $err = true;
             }
         }
@@ -37,19 +37,23 @@ class ReflectionType {
         }
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getFullName();
     }
 
-    public function isClass() {
+    public function isClass()
+    {
         return class_exists($this->name);
     }
 
-    public function isScalar() {
+    public function isScalar()
+    {
         return in_array($this->name, self::SCALAR_TYPES);
     }
 
-    public function newInstance() {
+    public function newInstance()
+    {
         if ($this->isScalar()) {
             throw new Exception('Only non-scalar types instance can be created');
         }
@@ -60,8 +64,8 @@ class ReflectionType {
 
     // Properties Getters & Setters
 
-    public function getFullName() {
+    public function getFullName()
+    {
         return ltrim($this->namespace.'\\'.$this->name, '\\');
     }
-
 }

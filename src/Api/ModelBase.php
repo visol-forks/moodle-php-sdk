@@ -3,22 +3,24 @@
 use MoodleSDK\Api\ApiContext;
 use MoodleSDK\Util\Reflection;
 
-abstract class ModelBase {
+abstract class ModelBase
+{
 
-    public function __construct() {
+    public function __construct()
+    {
     }
 
-    public function apiCall(ApiContext $apiContext, $method = '', $payload = null) {
+    public function apiCall(ApiContext $apiContext, $method = '', $payload = null)
+    {
         $call = $apiContext->newCall($method, $payload);
         $response = $call->execute();
         return $response;
     }
 
-    public function fromArray($data) {
+    public function fromArray($data)
+    {
         foreach ($data as $k => $v) {
-
             if (!method_exists($this, 'fromArrayExcludedProperties') || !in_array($k, $this->fromArrayExcludedProperties())) {
-                
                 if (is_array($v)) {
                     $itemType = Reflection::getPropertyType($this, $k);
                     $items = [];
@@ -26,8 +28,7 @@ abstract class ModelBase {
                     foreach ($v as $v_i) {
                         if ($itemType->isScalar()) {
                             $items[] = $v_i;
-                        }
-                        else {
+                        } else {
                             $item = $itemType->newInstance();
                             $item->fromArray($v_i);
                             $items[] = $item;
@@ -36,31 +37,31 @@ abstract class ModelBase {
 
                     $method = Reflection::getPropertySetter($this, $k);
                     $this->{$method}($items);
-                }
-                else {
+                } else {
                     $method = Reflection::getPropertySetter($this, $k);
                     if ($method) {
                         $this->{$method}($v);
                     }
                 }
-
             }
-
         }
     }
 
-    public function fromJSON($data) {
+    public function fromJSON($data)
+    {
         $this->fromArray(json_decode($data));
     }
 
-    public function fromObject($object) {
+    public function fromObject($object)
+    {
         $this->fromArray((array)$object);
     }
 
-    public function toArray() {
+    public function toArray()
+    {
         $arr = [];
 
-        Reflection::forEachGetter($this, function($method) use (&$arr) {
+        Reflection::forEachGetter($this, function ($method) use (&$arr) {
             $k = strtolower(substr($method, 3));
 
             if (!method_exists($this, 'toArrayExcludedProperties') || !in_array($k, $this->toArrayExcludedProperties())) {
@@ -75,34 +76,33 @@ abstract class ModelBase {
         return $arr;
     }
 
-    private function valueToArray($value) {
+    private function valueToArray($value)
+    {
         if (is_array($value)) {
             $arr = [];
-            foreach($value as $k => $v) {
+            foreach ($value as $k => $v) {
                 $arr[$k] = $this->valueToArray($v);
             }
             return $arr;
-        }
-        else if ($value instanceof ModelBase) {
+        } elseif ($value instanceof ModelBase) {
             return $value->toArray();
-        }
-        else if ($value instanceof \DateTime) {
+        } elseif ($value instanceof \DateTime) {
             return $value->getTimestamp();
-        }
-        else {
+        } else {
             return $value;
         }
     }
 
-    public function toJSON() {
+    public function toJSON()
+    {
         return json_encode($this->toArray());
     }
 
     // Static methods
 
-    public static function instance() {
+    public static function instance()
+    {
         $c = get_called_class();
         return new $c();
     }
-
 }

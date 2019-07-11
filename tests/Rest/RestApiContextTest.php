@@ -11,20 +11,24 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers RestApiContext
  */
-class RestApiContextTest extends ContextTestCase {
+class RestApiContextTest extends ContextTestCase
+{
 
-    public function availableContextProvider() {
+    public function availableContextProvider()
+    {
         return [[$this->getContext()]];
     }
 
-    public function unavailableContextProvider() {
+    public function unavailableContextProvider()
+    {
         return [[RestApiContext::instance()->setUrl('unavailable-host')]];
     }
 
     /**
     * @dataProvider availableContextProvider
     */
-    public function testTestApiAvailability($context) {
+    public function testTestApiAvailability($context)
+    {
         $this->assertTrue($context->testApiAvailability());
     }
 
@@ -32,18 +36,19 @@ class RestApiContextTest extends ContextTestCase {
     * @dataProvider unavailableContextProvider
     * @expectedException PHPUnit_Framework_Error
     */
-    public function testTestApiAvailabilityWithUnavailableApi($context) {
+    public function testTestApiAvailabilityWithUnavailableApi($context)
+    {
         $context->testApiAvailability();
     }
 
     /**
     * @dataProvider availableContextProvider
     */
-    public function testNewCall($context) {
+    public function testNewCall($context)
+    {
         $this->assertInstanceOf(
             RestApiCall::class,
             $context->newCall('test', [])
         );
     }
-
 }

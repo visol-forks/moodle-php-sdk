@@ -19,18 +19,21 @@ define(TEST_DEFAULT_COURSE_SHORTNAME, 'test-course');
 /**
  * @covers Course
  */
-class CourseTest extends ContextTestCase {
+class CourseTest extends ContextTestCase
+{
 
     private $course;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->course = new Course();
     }
 
     /**
     * @dataProvider contextProvider
     */
-    public function testCreate($context) {
+    public function testCreate($context)
+    {
         $this->course
             ->setShortName(TEST_COURSE_SHORTNAME)
             ->setDisplayName('Course DisplayName')
@@ -50,7 +53,8 @@ class CourseTest extends ContextTestCase {
     * @dataProvider contextProvider
     * @depends testCreate
     */
-    public function testGet($context) {
+    public function testGet($context)
+    {
         $this->course
                 ->setShortName(TEST_COURSE_SHORTNAME)
                 ->get($context);
@@ -63,7 +67,8 @@ class CourseTest extends ContextTestCase {
     * @depends testCreate
     * @depends testGet
     */
-    public function testUpdate($context) {
+    public function testUpdate($context)
+    {
         $this->course
             ->setShortName(TEST_COURSE_SHORTNAME)
             ->get($context)
@@ -71,7 +76,7 @@ class CourseTest extends ContextTestCase {
             ->update($context);
 
         $this->assertEquals(
-            'Course FullName Edited', 
+            'Course FullName Edited',
             Course::instance()->setShortName(TEST_COURSE_SHORTNAME)->get($context)->getFullName()
         );
     }
@@ -80,7 +85,8 @@ class CourseTest extends ContextTestCase {
     * @dataProvider contextProvider
     * @depends testUpdate
     */
-    public function testEnrolledUsers($context) {
+    public function testEnrolledUsers($context)
+    {
         $enrolledUsers = $this->course
                                 ->setShortName(TEST_DEFAULT_COURSE_SHORTNAME)
                                 ->get($context)
@@ -94,7 +100,8 @@ class CourseTest extends ContextTestCase {
     * @dataProvider contextProvider
     * @depends testEnrolledUsers
     */
-    public function testEnrolUser($context) {
+    public function testEnrolUser($context)
+    {
         $this->course
             ->setShortName(TEST_COURSE_SHORTNAME)
             ->get($context)
@@ -107,7 +114,8 @@ class CourseTest extends ContextTestCase {
     * @dataProvider contextProvider
     * @depends testEnrolUser
     */
-    public function testUnenrolUser($context) {
+    public function testUnenrolUser($context)
+    {
         $this->course
             ->setShortName(TEST_COURSE_SHORTNAME)
             ->get($context)
@@ -120,7 +128,8 @@ class CourseTest extends ContextTestCase {
     * @dataProvider contextProvider
     * @depends testUnenrolUser
     */
-    public function testDelete($context) {
+    public function testDelete($context)
+    {
         $this->course
             ->setShortName(TEST_COURSE_SHORTNAME)
             ->get($context)
@@ -128,5 +137,4 @@ class CourseTest extends ContextTestCase {
         
         $this->assertEmpty(Course::instance()->setShortName(TEST_COURSE_SHORTNAME)->get($context)->getId());
     }
-
 }

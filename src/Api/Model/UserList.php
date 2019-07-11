@@ -3,9 +3,11 @@
 use MoodleSDK\Api\ApiContext;
 use MoodleSDK\Api\ModelBaseList;
 
-class UserList extends ModelBaseList {
+class UserList extends ModelBaseList
+{
 
-    public function all(ApiContext $apiContext) {
+    public function all(ApiContext $apiContext)
+    {
         $json = $this->apiCall($apiContext, 'core_user_get_users', [
             'criteria' => [
                 [
@@ -18,5 +20,4 @@ class UserList extends ModelBaseList {
         $this->fromJSON($json);
         return $this;
     }
-
 }

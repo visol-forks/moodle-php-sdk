@@ -88,5 +88,4 @@ class CourseList extends ModelBaseList
         ]);
         return $json;
     }
-
 }

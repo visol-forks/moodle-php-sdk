@@ -11,17 +11,19 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers RestApiCall
  */
-class RestApiCallTest extends ContextTestCase {
+class RestApiCallTest extends ContextTestCase
+{
 
-    public function callProvider() {
+    public function callProvider()
+    {
         return [[$this->getContext()->newCall('core_webservice_get_site_info', [])]];
     }
 
     /**
     * @dataProvider callProvider
     */
-    public function testExecute($call) {
+    public function testExecute($call)
+    {
         $this->assertInternalType('string', $call->execute());
     }
-
 }

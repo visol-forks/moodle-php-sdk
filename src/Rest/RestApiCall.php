@@ -3,7 +3,8 @@
 use MoodleSDK\Api\ApiCall;
 use MoodleSDK\Log\ConsoleLog;
 
-class RestApiCall implements ApiCall {
+class RestApiCall implements ApiCall
+{
 
     private $debug;
 
@@ -12,7 +13,8 @@ class RestApiCall implements ApiCall {
     private $responseType;
     private $url;
 
-    public function __construct($url, $method, array $payload) {
+    public function __construct($url, $method, array $payload)
+    {
         if (!function_exists('curl_init')) {
             throw new Exception('cURL module must be enabled');
         }
@@ -22,7 +24,8 @@ class RestApiCall implements ApiCall {
         $this->payload = $payload;
     }
 
-    public function execute() {
+    public function execute()
+    {
         $curl = curl_init();
         $payloadQueryString = http_build_query($this->payload);
 
@@ -71,22 +74,25 @@ class RestApiCall implements ApiCall {
 
     // Properties Getters & Setters
 
-    public function getDebug() {
+    public function getDebug()
+    {
         return $this->debug;
     }
 
-    public function setDebug($debug) {
+    public function setDebug($debug)
+    {
         $this->debug = $debug;
         return $this;
     }
 
-    public function getResponseType() {
+    public function getResponseType()
+    {
         return $this->responseType;
     }
 
-    public function setResponseType($responseType) {
+    public function setResponseType($responseType)
+    {
         $this->responseType = $responseType;
         return $this;
     }
-
 }
