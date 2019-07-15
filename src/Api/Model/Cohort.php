@@ -79,18 +79,19 @@ class Cohort extends ModelBase implements ModelCRUD
 //        return $json;
     }
 
-//    public function getMembers(ApiContext $apiContext)
-//    {
-//        // TODO untested
-//        $json = $this->apiCall($apiContext, 'core_cohort_get_cohort_members', [
-//            'courseid' => $this->getId()
-//        ]);
-//
-//        $userList = new UserList();
-//        $userList->fromJSON($json);
-//
-//        return $userList;
-//    }
+    public function getMembers(ApiContext $apiContext)
+    {
+        $json = $this->apiCall($apiContext, 'core_cohort_get_cohort_members', [
+            'cohortids' => [$this->getId()]
+        ]);
+
+        $result = json_decode($json);
+        $userIds = $result[0]->userids;
+
+        $userList = new UserList();
+        $userList->findByIds($apiContext, $userIds);
+        return $userList;
+    }
 
     /**
      * Add a member to a Cohort
@@ -120,20 +121,26 @@ class Cohort extends ModelBase implements ModelCRUD
         return json_decode($json);
     }
 
+    /**
+     * Delete a member from a Cohort
+     *
+     * @param ApiContext $apiContext
+     * @param User $user
+     * @return mixed
+     */
     public function deleteMember(ApiContext $apiContext, User $user)
     {
-        // TODO untested
-//        $member = [
-//            'cohortid' => $this->getId(),
-//            'userid' => $user->getId()
-//        ];
-//        $json = $this->apiCall($apiContext, 'core_cohort_delete_cohort_members', [
-//            'members' => [
-//                $member
-//            ]
-//        ]);
-//
-//        return $json;
+        $member = [
+            'cohortid' => $this->getId(),
+            'userid' => $user->getId()
+        ];
+        $json = $this->apiCall($apiContext, 'core_cohort_delete_cohort_members', [
+            'members' => [
+                $member
+            ]
+        ]);
+
+        return $json;
     }
 
     public function fromArrayExcludedProperties()
