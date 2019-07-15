@@ -47,11 +47,11 @@ class CourseList extends ModelBaseList
     /**
      * Find courses by Ids
      *
-     * @param array $courseIds
      * @param ApiContext $apiContext
+     * @param array $courseIds
      * @return $this
      */
-    public function findByIds(array $courseIds, ApiContext $apiContext)
+    public function findByIds(ApiContext $apiContext, array $courseIds)
     {
         $json = $this->apiCall($apiContext, 'core_course_get_courses', [
             'options' => [

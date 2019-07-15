@@ -44,12 +44,12 @@ class User extends ModelBase implements ModelCRUD
     /**
      * Get a single user by the value of a given field
      *
+     * @param ApiContext $apiContext
      * @param string $fieldName
      * @param string $value
-     * @param ApiContext $apiContext
      * @return $this
      */
-    public function getByField($fieldName, $value, ApiContext $apiContext)
+    public function findByField(ApiContext $apiContext, $fieldName, $value)
     {
         $json = $this->apiCall($apiContext, 'core_user_get_users_by_field', [
             'field' => $fieldName,

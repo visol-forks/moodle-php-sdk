@@ -42,12 +42,12 @@ class Course extends ModelBase implements ModelCRUD
     /**
      * Get a single course by the value of a given field
      *
+     * @param ApiContext $apiContext
      * @param string $fieldName
      * @param $value
-     * @param ApiContext $apiContext
      * @return $this
      */
-    public function getByField($fieldName, $value, ApiContext $apiContext)
+    public function findByField(ApiContext $apiContext, $fieldName, $value)
     {
         $json = $this->apiCall($apiContext, 'core_course_get_courses_by_field', [
             'field' => $fieldName,
