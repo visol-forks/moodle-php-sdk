@@ -71,7 +71,8 @@ class User extends ModelBase implements ModelCRUD
     {
         $json = $this->apiCall($apiContext, 'core_user_create_users', [
             'users' => [
-                $this->toArray()
+                // The property "suspended" is not available in the core_user_create_users API
+                $this->toArray(['suspended'])
             ]
         ]);
 
@@ -103,9 +104,13 @@ class User extends ModelBase implements ModelCRUD
         return ['enrolledcourses', 'groups', 'roles'];
     }
 
-    public function toArrayExcludedProperties()
+    /**
+     * @param $additionalToArrayExcludedProperties
+     * @return array
+     */
+    public function toArrayExcludedProperties($additionalToArrayExcludedProperties)
     {
-        return ['fullname'];
+        return array_merge(['fullname'], $additionalToArrayExcludedProperties);
     }
 
     // Getters for Model relationships

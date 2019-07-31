@@ -145,7 +145,11 @@ class Course extends ModelBase implements ModelCRUD
         return ['courseformatoptions', 'enrollmentmethods', 'filters'];
     }
 
-    public function toArrayExcludedProperties()
+    /**
+     * @param $additionalToArrayExcludedProperties
+     * @return array
+     */
+    public function toArrayExcludedProperties($additionalToArrayExcludedProperties)
     {
         return ['displayname'];
     }

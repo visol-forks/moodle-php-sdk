@@ -57,14 +57,18 @@ abstract class ModelBase
         $this->fromArray((array)$object);
     }
 
-    public function toArray()
+    /**
+     * @param array $additionalToArrayExcludedProperties
+     * @return array
+     */
+    public function toArray($additionalToArrayExcludedProperties = [])
     {
         $arr = [];
 
-        Reflection::forEachGetter($this, function ($method) use (&$arr) {
+        Reflection::forEachGetter($this, function ($method) use (&$arr, $additionalToArrayExcludedProperties) {
             $k = strtolower(substr($method, 3));
 
-            if (!method_exists($this, 'toArrayExcludedProperties') || !in_array($k, $this->toArrayExcludedProperties())) {
+            if (!method_exists($this, 'toArrayExcludedProperties') || !in_array($k, $this->toArrayExcludedProperties($additionalToArrayExcludedProperties))) {
                 $v = $this->{$method}();
 
                 if (!is_null($v)) {

@@ -148,7 +148,11 @@ class Cohort extends ModelBase implements ModelCRUD
         return ['descriptionformat', 'visible', 'component', 'theme'];
     }
 
-    public function toArrayExcludedProperties()
+    /**
+     * @param $additionalToArrayExcludedProperties
+     * @return array
+     */
+    public function toArrayExcludedProperties($additionalToArrayExcludedProperties)
     {
         return [];
     }
