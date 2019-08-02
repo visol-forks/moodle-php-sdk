@@ -25,6 +25,16 @@ class Course extends ModelBase implements ModelCRUD
     private $endDate;
     private $contacts;
 
+    /**
+     * @var string
+     */
+    private $lang;
+
+    /**
+     * @var array
+     */
+    private $courseFormatOptions;
+
     public function get(ApiContext $apiContext)
     {
         $json = $this->apiCall($apiContext, 'core_course_get_courses_by_field', [
@@ -142,7 +152,7 @@ class Course extends ModelBase implements ModelCRUD
 
     public function fromArrayExcludedProperties()
     {
-        return ['courseformatoptions', 'enrollmentmethods', 'filters'];
+        return ['enrollmentmethods', 'filters'];
     }
 
     /**
@@ -324,4 +334,39 @@ class Course extends ModelBase implements ModelCRUD
         $this->contacts = $contacts;
         return $this;
     }
+
+    /**
+     * @return CourseFormatOption[]
+     */
+    public function getCourseFormatOptions()
+    {
+        return $this->courseFormatOptions;
+    }
+
+    /**
+     * @param array $courseFormatOptions
+     */
+    public function setCourseFormatOptions($courseFormatOptions)
+    {
+        $this->courseFormatOptions = $courseFormatOptions;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
+    /**
+     * @param string $lang
+     */
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+        return $this;
+    }
+
 }
