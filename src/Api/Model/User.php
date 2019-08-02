@@ -49,7 +49,7 @@ class User extends ModelBase implements ModelCRUD
      * @param string $value
      * @return $this
      */
-    public function findByField(ApiContext $apiContext, $fieldName, $value)
+    public function findOneByField(ApiContext $apiContext, $fieldName, $value)
     {
         $json = $this->apiCall($apiContext, 'core_user_get_users_by_field', [
             'field' => $fieldName,
