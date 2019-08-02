@@ -26,25 +26,6 @@ class CourseList extends ModelBaseList
     }
 
     /**
-     * Fetch one course
-     *
-     * @param int $courseId
-     * @param ApiContext $apiContext
-     * @return $this
-     */
-    public function one(int $courseId, ApiContext $apiContext)
-    {
-        $json = $this->apiCall($apiContext, 'core_course_get_courses', [
-            'options' => [
-                'ids' => [$courseId]
-            ]
-        ]);
-
-        $this->fromJSON($json);
-        return $this;
-    }
-
-    /**
      * Find courses by Ids
      *
      * @param ApiContext $apiContext
