@@ -25,6 +25,9 @@ class Course extends ModelBase implements ModelCRUD
     private $endDate;
     private $contacts;
 
+    /** @var integer */
+    private $visible;
+
     /**
      * @var string
      */
@@ -366,6 +369,23 @@ class Course extends ModelBase implements ModelCRUD
     public function setLang($lang)
     {
         $this->lang = $lang;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * @param int $visible
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
         return $this;
     }
 
