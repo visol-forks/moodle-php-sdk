@@ -101,7 +101,7 @@ class User extends ModelBase implements ModelCRUD
 
     public function fromArrayExcludedProperties()
     {
-        return ['enrolledcourses', 'groups', 'roles'];
+        return ['enrolledcourses', 'groups', 'roles', 'customfields'];
     }
 
     /**
