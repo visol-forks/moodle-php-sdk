@@ -60,4 +60,24 @@ class UserList extends ModelBaseList
         return $this;
     }
 
+    /**
+     * Get all users matching the value of a given field
+     *
+     * @param ApiContext $apiContext
+     * @param string $fieldName
+     * @param string $value
+     * @return $this
+     */
+    public function findByField(ApiContext $apiContext, $fieldName, $value)
+    {
+        $json = $this->apiCall($apiContext, 'core_user_get_users_by_field', [
+            'field' => $fieldName,
+            'values' => [$value]
+        ]);
+
+        $this->fromJSON($json);
+
+        return $this;
+    }
+
 }

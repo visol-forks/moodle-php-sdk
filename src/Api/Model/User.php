@@ -43,6 +43,8 @@ class User extends ModelBase implements ModelCRUD
 
     /**
      * Get a single user by the value of a given field
+     * This might be ambiguous if there is more than one user for the given criterion
+     * In this case, the first user found (the oldest) is returned
      *
      * @param ApiContext $apiContext
      * @param string $fieldName
