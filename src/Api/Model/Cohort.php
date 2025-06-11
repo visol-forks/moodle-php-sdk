@@ -96,8 +96,6 @@ class Cohort extends ModelBase implements ModelCRUD
     /**
      * Add a member to a Cohort
      *
-     * @param ApiContext $apiContext
-     * @param User $user
      * @return \stdClass
      */
     public function addMember(ApiContext $apiContext, User $user)
@@ -124,8 +122,6 @@ class Cohort extends ModelBase implements ModelCRUD
     /**
      * Delete a member from a Cohort
      *
-     * @param ApiContext $apiContext
-     * @param User $user
      * @return mixed
      */
     public function deleteMember(ApiContext $apiContext, User $user)
@@ -134,13 +130,12 @@ class Cohort extends ModelBase implements ModelCRUD
             'cohortid' => $this->getId(),
             'userid' => $user->getId()
         ];
-        $json = $this->apiCall($apiContext, 'core_cohort_delete_cohort_members', [
+
+        return $this->apiCall($apiContext, 'core_cohort_delete_cohort_members', [
             'members' => [
                 $member
             ]
         ]);
-
-        return $json;
     }
 
     public function fromArrayExcludedProperties()

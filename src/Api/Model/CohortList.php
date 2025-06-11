@@ -9,7 +9,6 @@ class CohortList extends ModelBaseList
     /**
      * Fetch all cohorts
      *
-     * @param ApiContext $apiContext
      * @return $this
      */
     public function all(ApiContext $apiContext)

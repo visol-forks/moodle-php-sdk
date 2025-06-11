@@ -30,7 +30,6 @@ class UserList extends ModelBaseList
     /**
      * Find users by Ids
      *
-     * @param ApiContext $apiContext
      * @param array $courseIds
      * @param string $fieldName
      * @return $this
@@ -63,7 +62,6 @@ class UserList extends ModelBaseList
     /**
      * Get all users matching the value of a given field
      *
-     * @param ApiContext $apiContext
      * @param string $fieldName
      * @param string $value
      * @return $this

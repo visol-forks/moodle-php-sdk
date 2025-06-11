@@ -20,11 +20,10 @@ abstract class Log
     {
         if (self::$instance) {
             return self::$instance;
-        } else {
-            $c = get_called_class();
-            self::$instance = $c::newInstance();
-            return self::$instance;
         }
+        $c = get_called_class();
+        self::$instance = $c::newInstance();
+        return self::$instance;
     }
 
     public static function i()

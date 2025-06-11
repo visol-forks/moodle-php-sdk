@@ -58,8 +58,6 @@ class Group extends ModelBase implements ModelCRUD
     /**
      * Add a member to a Group
      *
-     * @param ApiContext $apiContext
-     * @param User $user
      * @return \stdClass
      */
     public function addMember(ApiContext $apiContext, User $user)

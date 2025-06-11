@@ -64,7 +64,7 @@ class RestApiCall implements ApiCall
 
         curl_close($curl);
 
-        if ($err) {
+        if ($err !== '' && $err !== '0') {
             print_r($err);
             print_r($info);
         }

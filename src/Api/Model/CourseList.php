@@ -9,7 +9,6 @@ class CourseList extends ModelBaseList
     /**
      * Fetch all courses
      *
-     * @param ApiContext $apiContext
      * @return $this
      */
     public function all(ApiContext $apiContext)
@@ -28,8 +27,6 @@ class CourseList extends ModelBaseList
     /**
      * Find courses by Ids
      *
-     * @param ApiContext $apiContext
-     * @param array $courseIds
      * @return $this
      */
     public function findByIds(ApiContext $apiContext, array $courseIds)
@@ -56,17 +53,15 @@ class CourseList extends ModelBaseList
 
     public function bulkUpdate(ApiContext $apiContext, array $coursesToUpdate)
     {
-        $json = $this->apiCall($apiContext, 'core_course_update_courses', [
+        return $this->apiCall($apiContext, 'core_course_update_courses', [
             'courses' => $coursesToUpdate
         ]);
-        return $json;
     }
 
     public function bulkDelete(ApiContext $apiContext, array $idsOfCoursesToDelete)
     {
-        $json = $this->apiCall($apiContext, 'core_course_delete_courses', [
+        return $this->apiCall($apiContext, 'core_course_delete_courses', [
             'courseids' => $idsOfCoursesToDelete
         ]);
-        return $json;
     }
 }
