@@ -75,6 +75,11 @@ class Group extends ModelBase implements ModelCRUD
         return json_decode($json);
     }
 
+    public function fromArrayExcludedProperties()
+    {
+        return ['customfields'];
+    }
+
     /**
      * @return int
      */

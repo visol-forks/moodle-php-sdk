@@ -32,11 +32,6 @@ class Cohort extends ModelBase implements ModelCRUD
      */
     private $description;
 
-    /**
-     * @var string
-     */
-    private $customfields;
-
     public function get(ApiContext $apiContext)
     {
         $json = $this->apiCall($apiContext, 'core_cohort_get_cohorts', [
@@ -145,7 +140,7 @@ class Cohort extends ModelBase implements ModelCRUD
 
     public function fromArrayExcludedProperties()
     {
-        return ['descriptionformat', 'visible', 'component', 'theme'];
+        return ['descriptionformat', 'visible', 'component', 'theme', 'customfields'];
     }
 
     /**
@@ -241,23 +236,6 @@ class Cohort extends ModelBase implements ModelCRUD
     public function setDescription($description)
     {
         $this->description = $description;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomfields()
-    {
-        return $this->customfields;
-    }
-
-    /**
-     * @param string $customfields
-     */
-    public function setCustomfields($customfields)
-    {
-        $this->customfields = $customfields;
         return $this;
     }
 
