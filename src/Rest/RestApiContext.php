@@ -116,8 +116,7 @@ class RestApiContext implements ApiContext
     {
         $url = $this->getHost();
         $url .= ':'.$this->getPort();
-        $url .= $this->getPath();
-        return $url;
+        return $url . $this->getPath();
     }
 
     public function setUrl($url)

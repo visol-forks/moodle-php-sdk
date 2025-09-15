@@ -46,7 +46,6 @@ class User extends ModelBase implements ModelCRUD
      * This might be ambiguous if there is more than one user for the given criterion
      * In this case, the first user found (the oldest) is returned
      *
-     * @param ApiContext $apiContext
      * @param string $fieldName
      * @param string $value
      * @return $this
@@ -71,34 +70,28 @@ class User extends ModelBase implements ModelCRUD
 
     public function create(ApiContext $apiContext)
     {
-        $json = $this->apiCall($apiContext, 'core_user_create_users', [
+        return $this->apiCall($apiContext, 'core_user_create_users', [
             'users' => [
                 // The property "suspended" is not available in the core_user_create_users API
                 $this->toArray(['suspended'])
             ]
         ]);
-
-        return $json;
     }
 
     public function update(ApiContext $apiContext)
     {
-        $json = $this->apiCall($apiContext, 'core_user_update_users', [
+        return $this->apiCall($apiContext, 'core_user_update_users', [
             'users' => [
                 $this->toArray()
             ]
         ]);
-
-        return $json;
     }
 
     public function delete(ApiContext $apiContext)
     {
-        $json = $this->apiCall($apiContext, 'core_user_delete_users', [
+        return $this->apiCall($apiContext, 'core_user_delete_users', [
             'userids' => [$this->getId()]
         ]);
-
-        return $json;
     }
 
     public function fromArrayExcludedProperties()

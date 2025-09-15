@@ -13,8 +13,7 @@ abstract class ModelBase
     public function apiCall(ApiContext $apiContext, $method = '', $payload = null)
     {
         $call = $apiContext->newCall($method, $payload);
-        $response = $call->execute();
-        return $response;
+        return $call->execute();
     }
 
     public function fromArray($data)
@@ -88,13 +87,17 @@ abstract class ModelBase
                 $arr[$k] = $this->valueToArray($v);
             }
             return $arr;
-        } elseif ($value instanceof ModelBase) {
+        }
+        if ($value instanceof ModelBase) {
             return $value->toArray();
-        } elseif ($value instanceof \DateTime) {
+        }
+        if ($value instanceof \DateTime) {
             return $value->getTimestamp();
-        } else {
+        }
+        else {
             return $value;
         }
+        return null;
     }
 
     public function toJSON()

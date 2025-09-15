@@ -25,6 +25,7 @@ class Reflection
 
         // if we didn't find any getter that could match the requested property then we throw an exception
         //throw new \Exception('object doesn\'t have a property getter for '.$property);
+        return null;
     }
 
     public static function getPropertySetter(ModelBase $object, $property)
@@ -37,6 +38,7 @@ class Reflection
 
         // if we didn't find any setter that could match the requested property then we throw an exception
         //throw new \Exception('object doesn\'t have a property setter for '.$property);
+        return null;
     }
 
     public static function getPropertyType(ModelBase $object, $property)

@@ -55,7 +55,6 @@ class Course extends ModelBase implements ModelCRUD
     /**
      * Get a single course by the value of a given field
      *
-     * @param ApiContext $apiContext
      * @param string $fieldName
      * @param $value
      * @return $this
@@ -80,33 +79,27 @@ class Course extends ModelBase implements ModelCRUD
 
     public function create(ApiContext $apiContext)
     {
-        $json = $this->apiCall($apiContext, 'core_course_create_courses', [
+        return $this->apiCall($apiContext, 'core_course_create_courses', [
             'courses' => [
                 $this->toArray()
             ]
         ]);
-
-        return $json;
     }
  
     public function update(ApiContext $apiContext)
     {
-        $json = $this->apiCall($apiContext, 'core_course_update_courses', [
+        return $this->apiCall($apiContext, 'core_course_update_courses', [
             'courses' => [
                 $this->toArray()
             ]
         ]);
-
-        return $json;
     }
 
     public function delete(ApiContext $apiContext)
     {
-        $json = $this->apiCall($apiContext, 'core_course_delete_courses', [
+        return $this->apiCall($apiContext, 'core_course_delete_courses', [
             'courseids' => [$this->getId()]
         ]);
-
-        return $json;
     }
 
     public function enrolledUsers(ApiContext $apiContext)
@@ -140,7 +133,7 @@ class Course extends ModelBase implements ModelCRUD
 
     public function unenrolUser(ApiContext $apiContext, User $user, $roleId)
     {
-        $json = $this->apiCall($apiContext, 'enrol_manual_unenrol_users', [
+        return $this->apiCall($apiContext, 'enrol_manual_unenrol_users', [
             'enrolments' => [
                 Enrolment::instance()
                                 ->setCourseId($this->getId())
@@ -149,8 +142,6 @@ class Course extends ModelBase implements ModelCRUD
                                 ->toArray()
             ]
         ]);
-
-        return $json;
     }
 
     public function fromArrayExcludedProperties()
